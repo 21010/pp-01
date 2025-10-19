@@ -1,0 +1,24 @@
+[project]
+name = "poetry"
+version = "0.1.0"
+description = "Projekt zaliczeniowy na przedmiot Programowanie w Pythonie"
+authors = [
+    {name = "Grzegorz Ziolo",email = "12894466+21010@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32.5",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
+
+[tool.poetry]
+packages = [{include = "poetry", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
