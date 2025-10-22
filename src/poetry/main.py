@@ -1,6 +1,6 @@
-from src.etl import ETL
-from src.file_fetcher import FileFetcher
-from src.decorators import stopwatch
+from poetry.etl import ETL
+from poetry.file_fetcher import FileFetcher
+from poetry.decorators import stopwatch
 
 
 @stopwatch
@@ -15,9 +15,9 @@ def main():
 
     # 2. Wczytywanie, transformacja i ładowanie danych
     etl = ETL(
-        input_file="sample.csv",
-        values_file="values.csv",
-        missing_file="missing.csv",
+        input_file="output/sample.csv",
+        values_file="output/values.csv",
+        missing_file="output/missing.csv",
     )
 
     etl.run_etl()

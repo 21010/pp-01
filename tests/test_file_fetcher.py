@@ -1,14 +1,15 @@
 import os
+from pathlib import Path
 import pytest
-from src.file_fetcher import FileFetcher
-from src.exceptions import AccessDeniedError, NotFoundError
+from poetry.file_fetcher import FileFetcher
+from poetry.exceptions import AccessDeniedError, NotFoundError
 
 
 @pytest.fixture(autouse=True)
 def clean_files():
     files = [
-        "output/sample.csv",
-        "output/latest.csv",
+        Path("output/sample.csv").resolve(),
+        Path("output/latest.csv").resolve(),
     ]
     for file in files:
         if os.path.exists(file):

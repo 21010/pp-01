@@ -37,11 +37,11 @@ The core of the project is a generator-based pipeline that processes the source 
 To run the complete ETL process, execute the `main.py` script from the root of the project:
 
 ```bash
-poetry run python src/main.py
+poetry run main
 ```
 
 This will:
-1.  Download the `sample.csv` file from the hardcoded URL in `src/main.py`.
+1.  Download the `sample.csv` file from the hardcoded URL in `main.py`.
 2.  Save it to the project's root directory.
 3.  Process the file and generate `values.csv` and `missing.csv` in the root directory.
 4.  Print the total execution time.
@@ -54,19 +54,6 @@ To run the tests for this project:
 poetry run pytest -v
 ```
 
-### Adding Dependencies
-
-To add a new dependency to the project:
-
-```bash
-poetry add <package-name>
-```
-
-To add a development dependency:
-
-```bash
-poetry add --group dev <package-name>
-```
 
 ### Building the Project
 
@@ -88,17 +75,19 @@ The built packages will be located in the `dist/` directory.
 ├── LICENSE
 ├── output/
 │   ├── missing.csv
-│   └── values.csv
-    └── latest.csv
+│   ├── values.csv
+│   └── latest.csv
 ├── src/
-│   ├── __init__.py
-│   ├── decorators.py
-│   ├── etl.py
-│   ├── exceptions.py
-│   ├── file_fetcher.py
-│   └── main.py
+│   └── poetry/
+│       ├── __init__.py
+│       ├── decorators.py
+│       ├── etl.py
+│       ├── exceptions.py
+│       ├── file_fetcher.py
+│       └── main.py
 └── tests/
     ├── __init__.py
+    ├── test_decorators.py
     └── test_file_fetcher.py
 ```
 

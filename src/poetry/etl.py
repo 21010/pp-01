@@ -1,11 +1,12 @@
+from pathlib import Path
 import csv
 
 
 class ETL:
     def __init__(self, input_file: str, values_file: str, missing_file: str):
-        self.input_file = input_file
-        self.values_file = values_file
-        self.missing_file = missing_file
+        self.input_file = Path(input_file).resolve()
+        self.values_file = Path(values_file).resolve()
+        self.missing_file = Path(missing_file).resolve()
 
     def _extract(self):
         with open(self.input_file, "r", encoding="utf-8") as f:
@@ -40,9 +41,6 @@ class ETL:
             values_writer.writerow(["idx", "sum", "avg"])
             missing_writer.writerow(["idx", "missing_idxs"])
 
-            count_valid = 0
-            count_missing = 0
-
             # Przetwarzanie danych z generatora 'transform' i zapis
             for record_type, data in transform_iterator:
                 if record_type == "valid":
@@ -50,13 +48,11 @@ class ETL:
                     values_writer.writerow(
                         [row_id, f"{total_sum:.2f}", f"{average:.2f}"]
                     )
-                    count_valid += 1
                 elif record_type == "missing":
                     row_id, indices = data
 
                     indices_str = ", ".join(map(str, indices))
                     missing_writer.writerow([row_id, indices_str])
-                    count_missing += 1
 
     def run_etl(self):
         # E: Extract

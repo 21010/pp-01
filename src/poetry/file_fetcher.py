@@ -1,7 +1,8 @@
 import requests
+from pathlib import Path
 
 from requests.exceptions import HTTPError, RequestException
-from src.exceptions import NotFoundError, AccessDeniedError
+from poetry.exceptions import NotFoundError, AccessDeniedError
 
 
 class FileFetcher:
@@ -12,7 +13,10 @@ class FileFetcher:
             response = requests.get(url, timeout=10)
             response.raise_for_status()
 
-            with open(f"output/{file_name}", "wb") as f:
+            file_path = Path(f"output/{file_name}").resolve()
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(file_path, "wb") as f:
                 f.write(response.content)
 
         except HTTPError as http_err:
